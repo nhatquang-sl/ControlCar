@@ -26,6 +26,7 @@ import java.util.Set;
 
 // Recycler View: https://www.androidhive.info/2016/01/android-working-with-recycler-view/
 // Bluetooth overview: https://developer.android.com/guide/topics/connectivity/bluetooth
+//https://examples.javacodegeeks.com/android/android-bluetooth-connection-example/
 
 public class MainActivity extends AppCompatActivity {
 
@@ -75,6 +76,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(mAdapter);
 
         setupBluetooth();
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Movie movie = movieList.get(position);
+                Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
     private void setupBluetooth() {
