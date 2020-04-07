@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,17 +21,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 // Recycler View: https://www.androidhive.info/2016/01/android-working-with-recycler-view/
 // Bluetooth overview: https://developer.android.com/guide/topics/connectivity/bluetooth
 //https://examples.javacodegeeks.com/android/android-bluetooth-connection-example/
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
+    //SPP UUID. Look for it
+    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothAdapter bluetoothAdapter;
+    BluetoothSocket btSocket = null;
     private boolean mScanning;
     private Handler handler;
     // Stops scanning after 10 seconds.
@@ -60,19 +66,6 @@ public class MainActivity extends AppCompatActivity {
         // 3. Adding RecyclerView Divider / Separator
         recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Movie movie = movieList.get(position);
-                Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
-
         recyclerView.setAdapter(mAdapter);
 
         setupBluetooth();
@@ -81,7 +74,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Movie movie = movieList.get(position);
-                Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getApplicationContext(), BluetoothControlActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, movie.getGenre());
+                startActivity(intent);
             }
 
             @Override
@@ -118,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             for (BluetoothDevice device : pairedDevices) {
                 String deviceName = device.getName();
                 String deviceHardwareAddress = device.getAddress(); // MAC address
-                String deviceType= device.getBluetoothClass().getDeviceClass()+"";
+                String deviceType = device.getBluetoothClass().getDeviceClass() + "";
 
                 Movie movie = new Movie(deviceName, deviceHardwareAddress, deviceType);
                 movieList.add(movie);

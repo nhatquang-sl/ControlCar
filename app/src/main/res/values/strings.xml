@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Control Car</string>
     <string name="ble_not_supported">ble_not_supported</string>
+    <string name="arrow_left">⮜</string>
+    <string name="arrow_right">⮞</string>
+    <string name="arrow_up">⮝</string>
+    <string name="arrow_down">⮟</string>
 </resources>
