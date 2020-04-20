@@ -1,4 +1,4 @@
-package com.example.controlcar;
+package com.nnquang.controlcar;
 
 import android.content.Context;
 import android.view.GestureDetector;
@@ -7,7 +7,7 @@ import android.view.View;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
     private GestureDetector gestureDetector;
     private ClickListener clickListener;
 

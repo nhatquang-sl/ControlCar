@@ -1,4 +1,4 @@
-package com.example.controlcar;
+package com.nnquang.controlcar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -19,6 +18,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class BluetoothControlActivity extends AppCompatActivity {
+
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
     private BluetoothAdapter bluetoothAdapter;

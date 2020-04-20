@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "501786252456",
+    "firebase_url": "https://nq-expenditure.firebaseio.com",
+    "project_id": "nq-expenditure",
+    "storage_bucket": "nq-expenditure.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:501786252456:android:6a7fdf93c016441eda9e9d",
+        "android_client_info": {
+          "package_name": "com.nnquang.controlcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "501786252456-o2glq60p4opcj1du6qp7g52sb54me7ca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv1kCBSew5EcasRkDVAZaRNT_gdW8zwTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "501786252456-o2glq60p4opcj1du6qp7g52sb54me7ca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

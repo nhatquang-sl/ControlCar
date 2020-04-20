@@ -1,4 +1,4 @@
-package com.example.controlcar;
+package com.nnquang.controlcar;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.controlcar;
+package com.nnquang.controlcar;
 
 public class Movie {
     private String title, genre, year;

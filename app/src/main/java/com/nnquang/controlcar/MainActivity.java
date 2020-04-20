@@ -1,5 +1,6 @@
-package com.example.controlcar;
+package com.nnquang.controlcar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -15,23 +16,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-// Recycler View: https://www.androidhive.info/2016/01/android-working-with-recycler-view/
-// Bluetooth overview: https://developer.android.com/guide/topics/connectivity/bluetooth
-//https://examples.javacodegeeks.com/android/android-bluetooth-connection-example/
-
 public class MainActivity extends AppCompatActivity {
+
     public static final String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
     //SPP UUID. Look for it
     static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        GetFireBaseToken();
 
         // Get the widgets reference from XML layout
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
@@ -123,5 +125,28 @@ public class MainActivity extends AppCompatActivity {
 
             mAdapter.notifyDataSetChanged();
         }
+    }
+
+
+    public void GetFireBaseToken() {
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("TAG", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+
+                        // Log and toast
+
+                        Log.d("TAG", token);
+                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_SHORT).show();
+                    }
+
+                });
     }
 }
